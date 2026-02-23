@@ -60,8 +60,6 @@ class UserModel {
       ...updateData,
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
-
-    return this.findById(userId);
   }
 
   async addSubject(userId, subjectData) {
@@ -120,7 +118,16 @@ class UserModel {
     const users = [];
     snapshot.forEach(doc => {
       const data = doc.data();
-      const lastMarked = data.lastMarkedDate?.toDate();
+      const rawLastMarked = data.lastMarkedDate;
+      let lastMarked = null;
+
+      if (rawLastMarked) {
+        if (typeof rawLastMarked.toDate === 'function') {
+          lastMarked = rawLastMarked.toDate();
+        } else {
+          lastMarked = new Date(rawLastMarked);
+        }
+      }
       
       if (!lastMarked || lastMarked < today) {
         users.push({ id: doc.id, ...data });

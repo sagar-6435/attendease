@@ -8,7 +8,7 @@ exports.addSubject = async (req, res) => {
       return res.status(400).json({ message: 'Subject name is required' });
     }
 
-    const user = await UserModel.findById(req.userId);
+    const user = req.user;
 
     const existingSubject = (user.subjects || []).find(
       (s) => s.subjectName.toLowerCase() === subjectName.toLowerCase()
@@ -31,7 +31,7 @@ exports.addSubject = async (req, res) => {
 
 exports.getSubjects = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.userId);
+    const user = req.user;
     
     const subjectsWithPercentage = (user.subjects || []).map((subject) => ({
       id: subject.id,
@@ -63,7 +63,7 @@ exports.markAttendance = async (req, res) => {
       return res.status(400).json({ message: 'Status must be present or absent' });
     }
 
-    const user = await UserModel.findById(req.userId);
+    const user = req.user;
     const subject = (user.subjects || []).find(s => s.id === subjectId);
 
     if (!subject) {
@@ -100,7 +100,7 @@ exports.markAttendance = async (req, res) => {
 
 exports.getDashboard = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.userId);
+    const user = req.user;
 
     let totalClasses = 0;
     let totalAttended = 0;

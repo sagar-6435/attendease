@@ -18,6 +18,12 @@
     },
     "plugins": [
       "expo-notifications"
-    ]
+    ],
+    "extra": {
+      "apiUrl": "https://attendease-xu5m.onrender.com/api",
+      "eas": {
+        "projectId": "f2c3965e-3677-473a-ac52-6555da7ca3dc"
+      }
+    }
   }
 }

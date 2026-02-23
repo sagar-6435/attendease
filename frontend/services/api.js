@@ -1,11 +1,16 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
-const API_URL = 'http://192.168.1.100:5000/api';
+// Use environment variable or fallback to production URL
+const API_URL = Constants.expoConfig?.extra?.apiUrl || process.env.API_URL || 'https://attendease-xu5m.onrender.com/api';
+
+console.log('API URL:', API_URL); // For debugging
 
 const api = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
+  timeout: 30000, // 30 second timeout for slow connections
 });
 
 api.interceptors.request.use(async (config) => {
