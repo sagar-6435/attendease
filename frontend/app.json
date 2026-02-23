@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "AttendEase",
+    "slug": "attendease",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.attendease.app"
+    },
+    "android": {
+      "package": "com.attendease.app",
+      "googleServicesFile": "./google-services.json"
+    },
+    "plugins": [
+      "expo-notifications"
+    ]
+  }
+}
