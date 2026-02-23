@@ -9,8 +9,19 @@ const UserModel = require('./models/userModel');
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://attendease-backend.onrender.com'] // Add your frontend domain if needed
+    : '*',
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Trust proxy for production (required for Render.com)
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
 
 // Initialize Firestore
 initializeFirestore();
